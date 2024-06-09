@@ -47,7 +47,11 @@ public class RegistrazioneServlet extends HttpServlet {
 			user.setEmail(email);
 			user.setDataDiNascita(Date.valueOf(dataNascita));
 			user.setUsername(username);
-			user.setPassword(pwd);
+			
+			String salt = PasswordUtils.getSalt();
+			String hashedPassword = PasswordUtils.hashPassword(pwd, salt);
+		    user.setPassword(hashedPassword);
+		    
 			user.setAmministratore(false);
 			user.setCap(null);
 			user.setIndirizzo(null);

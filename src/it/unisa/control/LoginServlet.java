@@ -1,6 +1,10 @@
 package it.unisa.control;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -22,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-			
+	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -30,10 +34,13 @@ public class LoginServlet extends HttpServlet {
 		
 		try
 		{	    
-
+				
 		     UserBean user = new UserBean();
 		     user.setUsername(request.getParameter("un"));
-		     user.setPassword(request.getParameter("pw"));
+		     
+		     String salt = PasswordUtils.getSalt();
+			String hashedPassword = PasswordUtils.hashPassword(request.getParameter("pw"), salt);
+		     user.setPassword(hashedPassword);
 		     user = usDao.doRetrieve(request.getParameter("un"),request.getParameter("pw"));
 			   		    
 		    
