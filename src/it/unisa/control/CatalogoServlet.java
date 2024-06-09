@@ -2,11 +2,11 @@ package it.unisa.control;
 
 
 import org.apache.commons.text.StringEscapeUtils;
+
 import java.io.IOException; 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +18,7 @@ import it.unisa.model.ProdottoBean;
 import it.unisa.model.ProdottoDao;
 
 
+// Jsoup.clean(request.getParameter(""), Whitelist.basic());
 
 @WebServlet("/catalogo")
 public class CatalogoServlet extends HttpServlet {
